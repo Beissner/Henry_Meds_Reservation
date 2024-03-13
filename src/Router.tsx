@@ -4,6 +4,12 @@ import Menu from './screens/Menu';
 import Provider from './screens/Provider';
 import Client from './screens/Client';
 
+// type ReservationUserFlowStackType = {
+//   Menu: undefined,
+//   Provider: undefined,
+//   Client: undefined
+// };
+
 export default function ReservationUserFlowStack() {
     const Stack = createStackNavigator();
 
