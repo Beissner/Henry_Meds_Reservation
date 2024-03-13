@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, StyleProp } from 'react-native'
 import React from 'react'
 
 interface ButtonProps {
     title: string;
     borderColor?: string;
     onPress: () => void;
+    style?: StyleProp<T>;
 }
 
-export default function ButtonPrimary({title, borderColor = "blue", onPress}: ButtonProps) {
+export default function ButtonPrimary({title, borderColor = "blue", onPress, style}: ButtonProps) {
   return (
-    <View style={[styles.startButton, { borderColor }]}>
+    <View style={[styles.startButton, style, { borderColor }]}>
         <Button
             onPress={onPress}
             title={title}

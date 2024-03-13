@@ -3,7 +3,7 @@ import React from 'react'
 
 import Header from '../components/Header';
 import Description from '../components/Description';
-import ShiftItem from '../components/ShiftItem';
+import NewShiftItem from '../components/NewShiftItem';
 import ButtonPrimary from '../components/Button';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -20,12 +20,12 @@ export default function Provider() {
         <Header title={"Submit your availability"}/>
         <Description text={"Select days of the week and hours you want to work"}/>
         <View style={styles.shiftsContainer}>
-            {workDays.map(item => <ShiftItem label={item} key={item}/>)}
+            {workDays.map(item => <NewShiftItem label={item} key={item}/>)}
         </View>
         <ButtonPrimary
-                onPress={onSaveButtonPress}
-                title="Save"
-                borderColor="green"
+            onPress={onSaveButtonPress}
+            title="Save"
+            borderColor="green"
             />
         </ScrollView>
     );
@@ -43,5 +43,5 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
         width: '100%',
-    }
+    },
 });

@@ -46,10 +46,10 @@ export default function Menu({navigation}: StackNavigationProp) {
 
     if (selectedId == userType.client) {
       // send user to Client page
-      navigation.navigate('Client');
+      return navigation.navigate('Client');
     } if (selectedId == userType.provider) {
       // send user to Provider page
-      navigation.navigate('Provider');
+      return navigation.navigate('Provider');
     } else {
       setShowValidation(true);
     }
