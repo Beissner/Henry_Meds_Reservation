@@ -3,12 +3,13 @@ import React from 'react'
 
 interface ButtonProps {
     title: string;
+    borderColor?: string;
     onPress: () => void;
 }
 
-export default function ButtonPrimary({title, onPress}: ButtonProps) {
+export default function ButtonPrimary({title, borderColor = "blue", onPress}: ButtonProps) {
   return (
-    <View style={styles.startButton}>
+    <View style={[styles.startButton, { borderColor }]}>
         <Button
             onPress={onPress}
             title={title}
@@ -20,10 +21,10 @@ export default function ButtonPrimary({title, onPress}: ButtonProps) {
 
 const styles = StyleSheet.create({
     startButton: {
-        borderWidth: 0.5,
-        borderRadius: 10,
-        paddingHorizontal: 5,
-        borderColor: 'green',
+      width: "100%",
+      borderWidth: 0.5,
+      borderRadius: 10,
+      paddingHorizontal: 5,
       }, 
      
 });

@@ -1,39 +1,47 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 
 import Header from '../components/Header';
 import Description from '../components/Description';
 import ShiftItem from '../components/ShiftItem';
 import ButtonPrimary from '../components/Button';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const workDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 export default function Provider() {
-  return (
-    <View style={styles.container}>
-      <Header title={"Submit your availability"}/>
-      <Description text={"Select days of the week and hours you want to work"}/>
-      <View style={styles.shiftsContainer}>
-        {workDays.map(item => <ShiftItem label={item} id={item}/>)}
-      </View>
-      <ButtonPrimary
-            onPress={() => console.log('save availability')}
-            title={"Save"}
-        />
-    </View>
-  )
+    const onSaveButtonPress = () => {
+        // TODO call api to update with provider id
+        Alert.alert('Schedule saved!')
+    }
+
+    return (
+        <ScrollView contentContainerStyle={styles.container}>
+        <Header title={"Submit your availability"}/>
+        <Description text={"Select days of the week and hours you want to work"}/>
+        <View style={styles.shiftsContainer}>
+            {workDays.map(item => <ShiftItem label={item} key={item}/>)}
+        </View>
+        <ButtonPrimary
+                onPress={onSaveButtonPress}
+                title="Save"
+                borderColor="green"
+            />
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'flex-start',
-        justifyContent: 'center',
+        paddingTop: 25,
         backgroundColor: '#FFF',
         paddingHorizontal: 18,
     },
     shiftsContainer: {
-        marginTop: 20,
+        marginTop: 15,
+        marginBottom: 15,
         width: '100%',
     }
 });

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, StyleProp } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { StackNavigationProp } from '@react-navigation/stack';
 import RadioGroup from 'react-native-radio-buttons-group';
@@ -8,40 +8,51 @@ import Header  from '../components/Header';
 import Description from '../components/Description';
 import ButtonPrimary from '../components/Button';
 
+interface RadioGroupItemType {
+  id: string;
+  label: string;
+  value: userType;
+  containerStyle: StyleProp<T>;
+}
+
 export default function Menu({navigation}: StackNavigationProp) {
   const [user, setUser] = useState<userType | null>(userType.client);
   const [selectedId, setSelectedId] = useState<string>();
+  const [showValidation, setShowValidation] = useState<boolean>();
 
   const radioButtons = useMemo(() => ([
     {
-        id: '1',
+        id: userType.provider,
         label: 'Provider',
         value: userType.provider,
         containerStyle: styles.radioButton,
     },
     {
-        id: '2',
+        id: userType.client,
         label: 'Client',
         value: userType.client,
         containerStyle: styles.radioButton,
     }
 ]), []);
 
+  const handleRadioPress = (val: string) => {
+    setSelectedId(val);
+    setShowValidation(false);
+
+  }
+
   const handleOnPressButton = () => {
-    // 
-    console.log('button has been pressed');
+    // TODO normally authentication would be handled and the user object saved to a state managment library
 
     if (selectedId == userType.client) {
-      navigation.navigate('Client', {
-        user: selectedId
-      });
+      // send user to Client page
+      navigation.navigate('Client');
+    } if (selectedId == userType.provider) {
+      // send user to Provider page
+      navigation.navigate('Provider');
     } else {
-      navigation.navigate('Provider', {
-        user: selectedId
-      });
+      setShowValidation(true);
     }
-
-
   }
 
   return (
@@ -51,10 +62,11 @@ export default function Menu({navigation}: StackNavigationProp) {
       <View style={styles.radioButtonContainer}>
         <RadioGroup 
             radioButtons={radioButtons} 
-            onPress={setSelectedId}
+            onPress={handleRadioPress}
             selectedId={selectedId}
         />
       </View>
+      {showValidation ? <Text style={styles.validation}>Please make a selection</Text> : null}
       <ButtonPrimary
         onPress={handleOnPressButton}
         title={"Next"}
@@ -69,11 +81,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FFF',
+        paddingHorizontal: 25
     },
     radioButton: {
       alignSelf: 'flex-start',
     },
     radioButtonContainer: {
-      marginTop: 20,
+      marginVertical: 20,
+    },
+    validation: {
+      color: 'red',
+      marginBottom: 10,
     }
 });

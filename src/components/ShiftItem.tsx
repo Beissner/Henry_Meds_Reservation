@@ -12,7 +12,7 @@ interface ShiftItemProps {
     // shiftEnd: string;
 }
 
-export default function ShiftItem({ label, id, }: ShiftItemProps) {
+export default function ShiftItem({ label }: ShiftItemProps) {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selection, setSelection] = useState<string | null>(null);
@@ -41,32 +41,35 @@ export default function ShiftItem({ label, id, }: ShiftItemProps) {
       };
   
     return (
-    <View id={id} style={styles.itemContainer}>
-      <Text style={styles.label}>{label}</Text>
-     <View style={styles.buttonContainer}>
-       {startTime ? <Text>{startTime}</Text> : (
-         <ButtonPrimary
-            onPress={() => showDatePicker("start")}
-            title={"Start"}
-        />
-       )
-       }
-        <View style={styles.spacer}/>
-        {endTime ? <Text>{endTime}</Text> : (
-        <ButtonPrimary
-        onPress={() => showDatePicker("end")}
-       title={"End"}
-   />
-       )
-       }
+    <View style={styles.itemContainer}>
+        <Text style={styles.label}>{label}</Text>
+        <View style={styles.buttonRow}>
+            <View style={styles.shiftColumn}>
+                {startTime && <Text style={styles.time}>{startTime}</Text>}
+                <ButtonPrimary
+                    onPress={() => showDatePicker("start")}
+                    title={"Start"}
+                />
+            </View>
+       
+       
+            <View style={styles.spacer}/>
         
-     </View>
-     <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="time"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
+            <View style={styles.shiftColumn}>
+                {endTime && <Text style={styles.time}>{endTime}</Text>}
+                <ButtonPrimary
+                    onPress={() => showDatePicker("end")}
+                    title={"End"}
+                />
+            </View>
+       
+        </View>
+        <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="time"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+        />
     </View>
   )
 }
@@ -76,17 +79,26 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         flexDirection: 'row',
         alignItems: 'center',
+        width: '100%',
         justifyContent: 'space-between',
-        width: '90%',
     },
     label: {
         fontSize: 16,
-       
     },
-    buttonContainer: {
+    buttonRow: {
         flexDirection: 'row',
+        alignItems: 'flex-end',
     },
     spacer: {
         marginHorizontal: 8,
+    },
+    time: {
+        fontSize: 16,
+        fontWeight: '800',
+        marginBottom:8,
+    },
+    shiftColumn: {
+        width: 80,
+        alignItems: 'center',
     }
   });
