@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler';
+import dayjs from 'dayjs';
 
 import Header from '../components/Header';
 import Description from '../components/Description';
 import ShiftItem from '../components/ShiftItem';
 import fake_available_shifts_API from '../api/fakeAPI';
 import { Shift } from '../utils/types';
-import dayjs from 'dayjs';
 
 
 export default function Client() {
@@ -19,8 +19,9 @@ export default function Client() {
 
     },[]);
 
+    // mark shift as booked
     const onPressBookAppointment = (shift: Shift) => {
-        // mark shift as booked
+        
         setBookedShifts([...bookedShifts, shift.id])
     }
 
@@ -30,7 +31,7 @@ export default function Client() {
         const shiftDateFormatted = dayjs(shift.date).format('MMM D');
         const dateAndTime = `${shiftDateFormatted} at ${shiftTimeFormatted}`;
 
-        Alert.alert('Book Appointment', `Are you sure you want to book an appt with ${provider}? on ${dateAndTime}`,
+        Alert.alert('Book Appointment', `Are you sure you want to book an appt with ${provider} on ${dateAndTime}?`,
         [
             {
               text: 'Cancel',
@@ -52,7 +53,7 @@ export default function Client() {
                         <Text style={styles.providerLabel}>{provider.providerName}</Text>
                         {provider.shifts.map((shift) => {
                             const isBooked = bookedShifts.includes(shift.id);
-                            return <ShiftItem shift={shift} booked={isBooked} onPress={(shift) => onShiftPress(provider.providerName, shift)}/>
+                            return <ShiftItem shift={shift} booked={isBooked} onPress={(shift) => onShiftPress(provider.providerName, shift)} key={shift.id}/>
                         })}
                     </View>
                 );

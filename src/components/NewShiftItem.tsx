@@ -7,11 +7,11 @@ import ButtonPrimary from './Button';
 
 interface NewShiftItemProps {
     label: string;
-    id?: string;
 }
 
 export default function ShiftItem({ label }: NewShiftItemProps) {
 
+    // local state handles showing the picker, current selection (start/end) and times
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selection, setSelection] = useState<string | null>(null);
     const [startTime, setStartTime] = useState<string | null>(null);
@@ -20,13 +20,14 @@ export default function ShiftItem({ label }: NewShiftItemProps) {
     const showDatePicker = (selection: string) => {
         setDatePickerVisibility(true);
         setSelection(selection);
-      };
+    };
     
-      const hideDatePicker = () => {
+    const hideDatePicker = () => {
         setDatePickerVisibility(false);
-      };
+    };
     
-      const handleConfirm = (date: Date) => {
+    // save selected time
+    const handleConfirm = (date: Date) => {
         hideDatePicker();
         const formattedDate = dayjs(date).format('hh:mm A');
 
@@ -35,8 +36,7 @@ export default function ShiftItem({ label }: NewShiftItemProps) {
         } else {
             setEndTime(formattedDate);
         }
-
-      };
+    };
   
     return (
     <View style={styles.itemContainer}>
@@ -49,10 +49,7 @@ export default function ShiftItem({ label }: NewShiftItemProps) {
                     title={"Start"}
                 />
             </View>
-       
-       
             <View style={styles.spacer}/>
-        
             <View style={styles.shiftColumn}>
                 {endTime && <Text style={styles.time}>{endTime}</Text>}
                 <ButtonPrimary
@@ -60,7 +57,6 @@ export default function ShiftItem({ label }: NewShiftItemProps) {
                     title={"End"}
                 />
             </View>
-       
         </View>
         <DateTimePickerModal
             isVisible={isDatePickerVisible}

@@ -1,22 +1,23 @@
-import { View, Text, StyleSheet, StyleProp } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React, { useMemo, useState } from 'react'
-import { StackNavigationProp } from '@react-navigation/stack';
 import RadioGroup from 'react-native-radio-buttons-group';
+import type { StackScreenProps } from '@react-navigation/stack';
 
 import { userType } from '../utils/enums';
 import Header  from '../components/Header';
 import Description from '../components/Description';
 import ButtonPrimary from '../components/Button';
 
-interface RadioGroupItemType {
-  id: string;
-  label: string;
-  value: userType;
-  containerStyle: StyleProp<T>;
-}
+type RootStackParamList = {
+  Menu: undefined;
+  Client: undefined;
+  Provider: undefined;
+};
 
-export default function Menu({navigation}: StackNavigationProp) {
-  const [user, setUser] = useState<userType | null>(userType.client);
+type MenuPropTypes = StackScreenProps<RootStackParamList, 'Menu'>;
+
+export default function Menu({navigation}: MenuPropTypes) {
+  
   const [selectedId, setSelectedId] = useState<string>();
   const [showValidation, setShowValidation] = useState<boolean>();
 
@@ -42,7 +43,7 @@ export default function Menu({navigation}: StackNavigationProp) {
   }
 
   const handleOnPressButton = () => {
-    // TODO normally authentication would be handled and the user object saved to a state managment library
+    // TODO normally authentication would identify the type of user and the user object saved to a state managment library
 
     if (selectedId == userType.client) {
       // send user to Client page

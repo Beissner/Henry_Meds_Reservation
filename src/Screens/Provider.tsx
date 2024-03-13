@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Alert } from 'react-native'
+import { View, ScrollView, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 
 import Header from '../components/Header';
 import Description from '../components/Description';
 import NewShiftItem from '../components/NewShiftItem';
 import ButtonPrimary from '../components/Button';
-import { ScrollView } from 'react-native-gesture-handler';
+
 
 const workDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 

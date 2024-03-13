@@ -16,6 +16,7 @@ export default function ShiftItem({ shift, onPress, booked }: ShiftItemProps) {
     const shiftTimeFormatted = `${dayjs(shift.startTime).format('hh:mm A')} - ${dayjs(shift.endTime).format('hh:mm A')}`;
     const shiftDateFormatted = dayjs(shift.date).format('MMM D');
     const dateAndTime = `${shiftDateFormatted} at ${shiftTimeFormatted}`;
+    
     return (
         <View style={styles.itemContainer}>
             <View style={styles.shiftRow}>
@@ -46,5 +47,5 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 100,
-    },
+    }
   });
